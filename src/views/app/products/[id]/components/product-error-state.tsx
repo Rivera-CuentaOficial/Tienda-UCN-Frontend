@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui";
 
 interface ProductErrorStateProps {
-  error: string;
+  error?: string;
   canRetry: boolean;
   onRetry: () => void;
 }
