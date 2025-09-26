@@ -1,7 +1,6 @@
 import { useRouter } from "next/navigation";
 
 import { useGetProductDetail } from "@/hooks/api";
-import { getErrorDetails } from "@/lib";
 
 export const useProductDetail = (id: string) => {
   // State
@@ -17,7 +16,6 @@ export const useProductDetail = (id: string) => {
 
   // Computed values
   const productDetail = queryData?.data;
-  const errorDetails = error ? getErrorDetails(error) : null;
 
   // Actions
   const handleGoToProducts = () => {
@@ -25,9 +23,7 @@ export const useProductDetail = (id: string) => {
   };
 
   const handleRetry = () => {
-    if (errorDetails?.canRetry) {
-      refetch();
-    }
+    refetch();
   };
 
   const handleCalculateDiscountedPrice = (price: string, discount: number) => {
