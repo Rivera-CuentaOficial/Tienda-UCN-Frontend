@@ -36,7 +36,7 @@ export default function ProductsView() {
 
         {error && (
           <ProductsErrorState
-            error={handleApiError(error).details ?? ""}
+            error={handleApiError(error).details}
             canRetry={handleApiError(error).canRetry}
             onRetry={actions.handleRetry}
           />

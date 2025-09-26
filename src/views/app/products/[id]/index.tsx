@@ -29,7 +29,7 @@ export const SingleProductView = ({ id }: SingleProductViewProps) => {
   if (error) {
     return (
       <ProductErrorState
-        error={handleApiError(error).details ?? ""}
+        error={handleApiError(error).details}
         canRetry={handleApiError(error).canRetry}
         onRetry={actions.handleRetry}
       />
