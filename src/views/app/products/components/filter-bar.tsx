@@ -61,7 +61,7 @@ export const FilterBar = ({
   };
 
   return (
-    <div className="flex p-5 rounded-2xl mx-5 justify-start gap-x-4">
+    <div className="flex flex-col items-center gap-y-7 sm:flex-row p-5 rounded-2xl mx-5 sm:justify-start sm:gap-x-12">
       <Label htmlFor="search">
         Buscar:
         <Input
