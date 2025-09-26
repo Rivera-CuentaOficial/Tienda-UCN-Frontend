@@ -1,7 +1,14 @@
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { productService } from "@/services";
+import { stringRegexValidation } from "@/lib";
+import { productService } from "@/services/product-service";
 import { SingleProductView } from "@/views/app/products/[id]";
 
 interface SingleProductPageProps {
@@ -13,35 +20,69 @@ export async function generateMetadata({
 }: SingleProductPageProps): Promise<Metadata> {
   const { id } = await params;
 
-  const response = await getProductDetail(id);
-  const productDetail = response.data;
+  if (!stringRegexValidation(id, /^[1-9]\d*$/)) {
+    return notFound();
+  }
 
-  if (!productDetail) {
+  try {
+    const response = await productService.getProductDetail(id);
+    const productDetail = response.data.data;
+
+    if (!productDetail) {
+      return {
+        title: "Producto no disponible | Tienda UCN",
+        description: "Este producto no está disponible en este momento.",
+      };
+    }
+
     return {
-      title: "Producto no encontrado - Tienda UCN",
-      description: "El producto que buscas no está disponible.",
+      title: `${productDetail.brandName} ${productDetail.title} | Tienda UCN`,
+      description: productDetail.description,
+    };
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 404) return notFound();
+      return {
+        title: "Error al cargar el producto | Tienda UCN",
+        description: "Hubo un error al cargar el producto.",
+      };
+    }
+
+    return {
+      title: "Error al cargar el producto | Tienda UCN",
+      description: "Hubo un error al cargar el producto.",
     };
   }
-
-  return {
-    title: `${productDetail.brandName} | ${productDetail.title} - Tienda UCN`,
-    description: `Detalles del producto ${productDetail.title} en Tienda UCN.`,
-  };
 }
-
-const getProductDetail = async (id: string) => {
-  try {
-    const productDetail = await productService.getProductDetail(id);
-    return productDetail.data;
-  } catch {
-    notFound();
-  }
-};
 
 export default async function SingleProductPage({
   params,
 }: SingleProductPageProps) {
   const { id } = await params;
 
-  return <SingleProductView id={id} />;
+  if (stringRegexValidation(id, /^[1-9]\d*$/)) {
+    return notFound();
+  }
+
+  const queryClient = new QueryClient();
+
+  try {
+    await queryClient.prefetchQuery({
+      queryKey: ["products", "detail", id],
+      queryFn: async () => {
+        const response = await productService.getProductDetail(id);
+        return response.data;
+      },
+    });
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 404) return notFound();
+    }
+  }
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <SingleProductView id={id} />
+    </HydrationBoundary>
+  );
 }
