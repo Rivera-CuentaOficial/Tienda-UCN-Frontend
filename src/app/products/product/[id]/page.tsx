@@ -41,7 +41,12 @@ export async function generateMetadata({
     };
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
-      if (error.response?.status === 404) return notFound();
+      if (error.response?.status === 404) {
+        return {
+          title: "Producto no encontrado | Tienda UCN",
+          description: "El producto que buscas no existe.",
+        };
+      }
       return {
         title: "Error al cargar el producto | Tienda UCN",
         description: "Hubo un error al cargar el producto.",
@@ -67,7 +72,7 @@ export default async function SingleProductPage({
   const queryClient = new QueryClient();
 
   try {
-    await queryClient.prefetchQuery({
+    await queryClient.fetchQuery({
       queryKey: ["products", "detail", id],
       queryFn: async () => {
         const response = await productService.getProductDetail(id);
