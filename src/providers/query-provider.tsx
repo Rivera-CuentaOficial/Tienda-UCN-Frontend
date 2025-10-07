@@ -22,20 +22,6 @@ export const queryClient = new QueryClient({
       },
       refetchOnWindowFocus: true,
     },
-    mutations: {
-      retry: (failureCount, error: unknown) => {
-        if (error && typeof error === "object") {
-          const axiosError = error as AxiosError;
-          const status = axiosError?.response?.status;
-          if (typeof status === "number") {
-            if (status >= 400 && status < 500 && status !== 408) {
-              return false;
-            }
-          }
-        }
-        return failureCount < 2;
-      },
-    },
   },
 });
 
