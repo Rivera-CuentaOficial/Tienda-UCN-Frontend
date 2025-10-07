@@ -1,16 +1,25 @@
 "use client";
 
-import { MenuIcon, UserIcon, XIcon } from "lucide-react";
+import { LogOutIcon, MenuIcon, UserIcon, XIcon } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { Button } from "@/components/ui";
+import { Button, Skeleton } from "@/components/ui";
+import { useAuth } from "@/hooks/api";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [logoutLoading, setLogoutLoading] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const { isAuthenticated, isLoading, logoutAsync } = useAuth();
+
+  const handleLogout = async () => {
+    setLogoutLoading(true);
+    await logoutAsync();
   };
 
   return (
@@ -25,23 +34,42 @@ export const Navbar = () => {
           <li>
             <Link href="/products">Productos</Link>
           </li>
-          <li>
-            <Link href="/services">Servicios</Link>
-          </li>
-          <li>
-            <Link href="/contact">Contacto</Link>
-          </li>
-          <Link href="/login">
-            <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-full">
-              <UserIcon /> Iniciar sesión
-            </Button>
-          </Link>
-          <li>
-            <Link
-              href={"/cart"}
-              className="relative flex items-center hover:bg-blue-400 rounded-full p-2 transition-all"
-            ></Link>
-          </li>
+          {isLoading ? (
+            <li>
+              <Skeleton className="h-10 w-32 rounded-full" />
+            </li>
+          ) : isAuthenticated ? (
+            <>
+              <li>
+                <Button
+                  onClick={() => handleLogout()}
+                  disabled={logoutLoading}
+                  className={`relative flex items-center bg-red-600 hover:bg-red-500 rounded-full p-2 transition ${
+                    logoutLoading ? "opacity-70 cursor-not-allowed" : ""
+                  }`}
+                >
+                  <LogOutIcon className="h-5 w-5" />
+                  {logoutLoading ? "Cerrando..." : "Cerrar sesión"}
+                </Button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link href="/auth/register">Registrarse</Link>
+              </li>
+              <li>
+                <Link href="/auth/verify-email">Verificar Correo</Link>
+              </li>
+              <li>
+                <Link href="/auth/login">
+                  <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-full">
+                    <UserIcon /> Iniciar sesión
+                  </Button>
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
 
         <div className="md:hidden">
@@ -68,25 +96,43 @@ export const Navbar = () => {
                 Productos
               </Link>
             </li>
-            <li>
-              <Link href="/services" onClick={toggleMenu}>
-                Servicios
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" onClick={toggleMenu}>
-                Contacto
-              </Link>
-            </li>
+            {isLoading ? (
+              <li>
+                <Skeleton className="h-10 w-32 rounded-full" />
+              </li>
+            ) : isAuthenticated ? (
+              <>
+                <li>
+                  <Button
+                    onClick={() => handleLogout()}
+                    disabled={logoutLoading}
+                    className={`relative flex items-center bg-red-600 hover:bg-red-500 rounded-full p-2 transition ${
+                      logoutLoading ? "opacity-70 cursor-not-allowed" : ""
+                    }`}
+                  >
+                    <LogOutIcon className="h-5 w-5" />
+                    {logoutLoading ? "Cerrando..." : "Cerrar sesión"}
+                  </Button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link href="/auth/register">Registrarse</Link>
+                </li>
+                <li>
+                  <Link href="/auth/verify-email">Verificar Correo</Link>
+                </li>
+                <li>
+                  <Link href="/auth/login">
+                    <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-full">
+                      <UserIcon /> Iniciar sesión
+                    </Button>
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
-          <Link
-            href="/login"
-            className="w-full flex items-center justify-center px-7"
-          >
-            <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-full w-full">
-              <UserIcon /> Iniciar sesión
-            </Button>
-          </Link>
         </div>
       )}
     </nav>
