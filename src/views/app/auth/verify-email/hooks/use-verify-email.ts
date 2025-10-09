@@ -14,7 +14,7 @@ export const useVerifyEmail = () => {
     try {
       await verifyEmailAsync(verifyData);
       toast.success("Cuenta verificada exitosamente. Redirigiendo...");
-      router.push(`/auth/login?email=${encodeURIComponent(verifyData.email)}`);
+      router.push(`/auth/login`);
     } catch (error) {}
   };
 
