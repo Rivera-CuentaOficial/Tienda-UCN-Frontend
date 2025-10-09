@@ -1,4 +1,10 @@
-export { useAuth } from "./use-auth-service";
+export {
+  useLoginMutation,
+  useLogoutMutation,
+  useRegisterMutation,
+  useResendCodeMutation,
+  useVerifyEmailMutation,
+} from "./use-auth-service";
 export {
   useGetProductDetail,
   useGetProductsForCustomer,
