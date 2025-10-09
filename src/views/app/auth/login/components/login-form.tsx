@@ -28,17 +28,13 @@ const formSchema = z.object({
   rememberMe: z.boolean(),
 });
 
-interface Props {
-  email?: string;
-}
-
-export function LoginForm({ email }: Props) {
+export function LoginForm() {
   const { handleLogin, isLoading, error } = useLogin();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: email || "",
+      email: "",
       password: "",
       rememberMe: false,
     },

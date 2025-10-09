@@ -12,11 +12,7 @@ import {
 
 import { LoginForm } from "./login-form";
 
-interface Props {
-  email?: string;
-}
-
-export function LoginCard({ email }: Props) {
+export function LoginCard() {
   return (
     <Card className="w-full max-w-xl">
       <CardHeader>
@@ -31,7 +27,7 @@ export function LoginCard({ email }: Props) {
         </CardAction>
       </CardHeader>
       <CardContent>
-        <LoginForm email={email} />
+        <LoginForm />
       </CardContent>
     </Card>
   );

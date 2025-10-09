@@ -5,12 +5,6 @@ export const metadata = {
   description: "Página para que los usuarios inicien sesión en la plataforma.",
 };
 
-export default async function LoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ email?: string }>;
-}) {
-  const { email } = await searchParams;
-
-  return <LoginView email={email} />;
+export default function LoginPage() {
+  return <LoginView />;
 }
