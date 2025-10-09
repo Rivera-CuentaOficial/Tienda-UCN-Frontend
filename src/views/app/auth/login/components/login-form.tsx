@@ -42,6 +42,7 @@ export function LoginForm({ email }: Props) {
       password: "",
       rememberMe: false,
     },
+    mode: "onTouched",
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -135,7 +136,11 @@ export function LoginForm({ email }: Props) {
           </div>
         )}
         <div className="flex justify-center items-center">
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button
+            type="submit"
+            className={`w-full ${isLoading ? "cursor-wait" : "cursor-pointer"}`}
+            disabled={isLoading || !form.formState.isValid}
+          >
             {isLoading ? "Ingresando..." : "Ingresar"}
           </Button>
         </div>
