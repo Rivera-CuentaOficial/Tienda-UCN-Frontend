@@ -54,7 +54,7 @@ export const ProductInfoSection = ({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 shrink-0 rounded-full"
+            className="h-8 w-8 shrink-0 rounded-full cursor-pointer"
           >
             <Minus className="h-4 w-4" />
             <span className="sr-only">Decrease</span>
@@ -67,7 +67,7 @@ export const ProductInfoSection = ({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 shrink-0 rounded-full"
+            className="h-8 w-8 shrink-0 rounded-full cursor-pointer"
           >
             <Plus className="h-4 w-4" />
             <span className="sr-only">Increase</span>
@@ -76,7 +76,7 @@ export const ProductInfoSection = ({
       </div>
 
       {/* Add to Cart Button */}
-      <Button className="w-full py-3 text-lg font-semibold">
+      <Button className="w-full py-3 text-lg font-semibold cursor-pointer">
         Añadir al carro
       </Button>
     </div>

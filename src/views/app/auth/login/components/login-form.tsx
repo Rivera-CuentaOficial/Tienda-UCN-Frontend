@@ -92,6 +92,7 @@ export function LoginForm() {
               <FormItem className="flex flex-row items-start space-y-0">
                 <FormControl>
                   <Checkbox
+                    className="cursor-pointer"
                     checked={field.value}
                     onCheckedChange={field.onChange}
                     disabled={isLoading}
