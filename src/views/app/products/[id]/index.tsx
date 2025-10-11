@@ -46,7 +46,7 @@ export const SingleProductView = ({ id }: SingleProductViewProps) => {
         <Button
           variant="outline"
           onClick={actions.handleGoToProducts}
-          className="flex items-center space-x-2 hover:bg-gray-50"
+          className="flex items-center space-x-2 hover:bg-gray-50 cursor-pointer"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Volver</span>
