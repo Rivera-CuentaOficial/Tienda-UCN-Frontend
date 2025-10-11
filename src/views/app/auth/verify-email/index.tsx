@@ -6,7 +6,7 @@ interface Props {
 
 export default function VerifyEmailView({ email }: Props) {
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-start justify-center min-h-screen pt-8">
       <VerifyEmailCard email={email} />
     </div>
   );
