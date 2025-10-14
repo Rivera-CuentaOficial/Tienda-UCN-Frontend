@@ -18,16 +18,20 @@ export const Navbar = () => {
   // Hooks
   const { mutateAsync: logoutAsync, isPending: isLoggingOut } =
     useLogoutMutation();
-  const { status } = useSession();
+  const { status, data } = useSession();
 
   // Computed values
   const isAuthenticated = status === "authenticated";
   const isLoading = status === "loading";
+  const role = data?.user.role;
 
   // Navigation items
   const navigationItems = [
     { href: "/", label: "Inicio" },
-    { href: "/products", label: "Productos" },
+    {
+      href: role?.toLowerCase() === "admin" ? "/admin/products" : "/products",
+      label: "Productos",
+    },
   ];
 
   // Event handlers
