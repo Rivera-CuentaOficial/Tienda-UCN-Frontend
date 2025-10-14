@@ -7,3 +7,18 @@ export const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+axiosInstance.interceptors.request.use(async config => {
+  try {
+    const res = await fetch("/api/auth/token", { credentials: "include" });
+    const data = await res.json();
+
+    if (data.accessToken && config.headers) {
+      config.headers.Authorization = `Bearer ${data.accessToken}`;
+    }
+  } catch (err) {
+    console.error("Error obteniendo token para interceptor:", err);
+  }
+
+  return config;
+});
