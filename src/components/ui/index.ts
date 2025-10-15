@@ -81,4 +81,5 @@ export {
 } from "./sheet";
 export { Skeleton } from "./skeleton";
 export { Switch } from "./switch";
+export { Textarea } from "./textarea";
 export { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
