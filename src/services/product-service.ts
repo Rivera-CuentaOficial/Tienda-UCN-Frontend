@@ -35,10 +35,10 @@ export class ProductService extends BaseApiService {
     );
   }
 
-  createProduct(productData: CreateProductRequest) {
+  createProduct(productFormData: FormData) {
     return this.httpClient.post<ApiResponse<string>>(
       `${this.baseURL}`,
-      productData,
+      productFormData,
       {
         headers: { "Content-Type": "multipart/form-data" },
       }
