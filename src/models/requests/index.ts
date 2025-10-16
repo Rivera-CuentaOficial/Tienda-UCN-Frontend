@@ -1,4 +1,3 @@
-import { CreateProductRequest } from "./product";
 export {
   type LoginRequest,
   type RegisterRequest,

@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 
 import { ApiResponse } from "@/models/generics";
-import { CreateProductRequest, PaginationQueryParams } from "@/models/requests";
+import { PaginationQueryParams } from "@/models/requests";
 import {
   ProductDetailForCustomerResponse,
   ProductListForAdminResponse,

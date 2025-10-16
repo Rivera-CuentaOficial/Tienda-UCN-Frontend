@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { isValidId } from "@/lib";
-import { CreateProductRequest, PaginationQueryParams } from "@/models/requests";
+import { PaginationQueryParams } from "@/models/requests";
 import { productService } from "@/services";
 
 export const useGetProductsForCustomer = (
