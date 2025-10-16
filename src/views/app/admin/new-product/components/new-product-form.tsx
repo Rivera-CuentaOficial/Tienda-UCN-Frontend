@@ -152,7 +152,7 @@ export function NewProductForm() {
                         type="number"
                         placeholder="0"
                         min={0}
-                        value={field.value as number}
+                        value={value as number}
                         {...rest}
                         disabled={isLoading}
                       />
@@ -176,7 +176,7 @@ export function NewProductForm() {
                         type="number"
                         placeholder="0"
                         min={0}
-                        value={field.value as number}
+                        value={value as number}
                         {...rest}
                         disabled={isLoading}
                       />
