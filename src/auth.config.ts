@@ -15,9 +15,13 @@ export const authConfig = {
         rememberMe: { label: "Remember Me", type: "boolean" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        if (
+          !credentials?.email ||
+          !credentials?.password ||
+          !credentials?.rememberMe
+        ) {
           throw new Error(
-            "El correo electrónico y la contraseña son requeridos"
+            "El correo electrónico, la contraseña y la opción de recordar son requeridos"
           );
         }
 
@@ -36,7 +40,6 @@ export const authConfig = {
             const userObject = {
               id: user.id,
               email: user.email,
-              name: user.email, // Usando email como name por ahora // TODO: ELIMINAR NAME
               accessToken: response.data.data,
               role: user.role,
               exp: user.exp,
@@ -66,9 +69,6 @@ export const authConfig = {
       // Handle session updates
       if (trigger === "update" && session) {
         // Update user data in the token
-        if (session.user?.name) {
-          token.name = session.user.name;
-        }
         if (session.user?.email) {
           token.email = session.user.email;
         }
@@ -131,9 +131,6 @@ export const authConfig = {
         session.user.id = token.sub as string;
         session.user.role = token.role as string;
 
-        if (token.name) {
-          session.user.name = token.name as string;
-        }
         if (token.email) {
           session.user.email = token.email as string;
         }
