@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -18,6 +19,7 @@ interface CheckoutChanges {
 }
 
 export function useCheckoutView() {
+  const router = useRouter();
   const { items, setItems, getTotalItems, getTotalPrice } = useCartStore();
 
   const [checkoutChanges, setCheckoutChanges] =
@@ -36,7 +38,11 @@ export function useCheckoutView() {
   const checkoutMutation = useCheckoutMutation();
 
   useEffect(() => {
-    if (cart) setItems(cart.data.items);
+    if (cart && cart.data.items.length > 0) {
+      setItems(cart.data.items);
+    } else {
+      router.replace("/cart");
+    }
   }, [cart, setItems]);
 
   const detectChanges = (
