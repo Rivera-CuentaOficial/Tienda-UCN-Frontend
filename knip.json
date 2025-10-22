@@ -9,7 +9,6 @@
   "project": ["src/**/*.{js,ts,jsx,tsx}", "!src/**/*.d.ts"],
   "ignoreDependencies": [
     "pdf-lib",
-    "zustand",
     "eslint-config-next",
     "tw-animate-css",
     "tailwindcss"
