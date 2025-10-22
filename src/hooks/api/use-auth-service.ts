@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { toast } from "sonner";
 
-import { loginAction } from "@/lib/actions";
+import { handleApiError } from "@/lib";
 import { LoginRequest } from "@/models/requests";
 import { RegisterRequest, VerifyEmailRequest } from "@/models/requests";
 import { queryClient } from "@/providers";
@@ -12,13 +12,28 @@ import { authService } from "@/services/auth-service";
 export const useLoginMutation = () => {
   return useMutation({
     mutationFn: async (data: LoginRequest) => {
-      const result = await loginAction(data);
+      try {
+        const response = await authService.login({
+          email: data.email,
+          password: data.password,
+          rememberMe: data.rememberMe,
+        });
 
-      if (!result.ok) {
-        throw new Error(result.message || "Error al iniciar sesión");
+        const result = await signIn("credentials", {
+          email: data.email,
+          token: response.data.data,
+          redirect: false,
+        });
+
+        if (!result?.ok) {
+          throw new Error("Error al crear la sesión");
+        }
+
+        return result;
+      } catch (error) {
+        const apiError = handleApiError(error);
+        throw new Error(apiError.details);
       }
-
-      return result;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
