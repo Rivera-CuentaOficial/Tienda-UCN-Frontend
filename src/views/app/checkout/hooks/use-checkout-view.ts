@@ -43,7 +43,7 @@ export function useCheckoutView() {
     } else {
       router.replace("/cart");
     }
-  }, [cart, setItems]);
+  }, [cart, setItems, router]);
 
   const detectChanges = (
     oldItems: typeof items,
