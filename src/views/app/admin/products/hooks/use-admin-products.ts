@@ -34,6 +34,7 @@ export const useAdminProducts = () => {
   const totalCount = productsData?.totalCount ?? 0;
   const currentPage = productsData?.currentPage ?? 1;
 
+  // Helpers
   const generatePageNumbers = () => {
     const pages = [];
 
