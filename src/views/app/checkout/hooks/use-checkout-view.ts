@@ -24,9 +24,7 @@ export function useCheckoutView() {
     useState<CheckoutChanges | null>(null);
   const [showCheckoutDialog, setShowCheckoutDialog] = useState(false);
   const [isCreatingOrder, setIsCreatingOrder] = useState(false);
-
-  // Router
-  const router = useRouter();
+  const [isInitializing, setIsInitializing] = useState(true);
 
   // Store
   const { items, setItems, getTotalItems, getTotalPrice } = useCartStore();
@@ -39,20 +37,35 @@ export function useCheckoutView() {
   } = useGetCart();
   const checkoutMutation = useCheckoutMutation();
 
-  // Effects
-  useEffect(() => {
-    if (cart && cart.data.items.length > 0) {
-      setItems(cart.data.items);
-    } else {
-      router.replace("/cart");
-    }
-  }, [cart, setItems, router]);
-
   // Computed values
   const totalItems = getTotalItems();
   const totalPrice = getTotalPrice();
   const hasItems = items.length > 0;
   const isLoading = isFetching || isCreatingOrder;
+  const showSkeletons = isInitializing || isFetching;
+
+  // Effects
+  useEffect(() => {
+    const initializeCheckout = async () => {
+      if (!hasItems) {
+        setIsInitializing(false);
+        return;
+      }
+
+      try {
+        const cartData = await fetchCart();
+        const newItems = cartData.data?.data?.items || [];
+        setItems(newItems);
+      } catch (err) {
+        const apiError = handleApiError(err).details;
+        toast.error(apiError || "Error al cargar el carrito");
+      } finally {
+        setIsInitializing(false);
+      }
+    };
+
+    initializeCheckout();
+  }, []);
 
   // Helpers
   const detectChanges = (
@@ -150,6 +163,8 @@ export function useCheckoutView() {
     isLoading,
     isFetching,
     isCreatingOrder,
+    isInitializing,
+    showSkeletons,
 
     // Mutation states
     error: checkoutMutation.error,
