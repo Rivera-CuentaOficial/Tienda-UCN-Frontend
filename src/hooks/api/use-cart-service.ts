@@ -10,7 +10,6 @@ export const useGetCart = () => {
       const response = await cartService.getCart();
       return response.data;
     },
-    staleTime: 1 * 60 * 1000,
   });
 };
 
