@@ -70,7 +70,7 @@ export const FilterBar = ({
           onValueChange={handlePageSizeChange}
           disabled={maxPageSize === 0 || pageSizeOptions.length === 0}
         >
-          <SelectTrigger className="w-24" id="productsPerPage">
+          <SelectTrigger className="w-24 cursor-pointer" id="productsPerPage">
             <SelectValue placeholder="Seleccionar" />
           </SelectTrigger>
           <SelectContent>

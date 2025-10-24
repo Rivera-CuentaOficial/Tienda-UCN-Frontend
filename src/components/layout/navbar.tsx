@@ -21,6 +21,8 @@ import {
 } from "@/components/ui";
 import { useLogoutMutation } from "@/hooks/api";
 
+import { CartDropdown } from "./cart-dropdown";
+
 export const Navbar = () => {
   // Hooks
   const { mutateAsync: logoutAsync, isPending: isLoggingOut } =
@@ -102,6 +104,10 @@ export const Navbar = () => {
           </ul>
 
           <ul className="flex space-x-4 font-medium items-center">
+            <li>
+              <CartDropdown />
+            </li>
+
             {isLoading ? (
               <></>
             ) : isAuthenticated ? (

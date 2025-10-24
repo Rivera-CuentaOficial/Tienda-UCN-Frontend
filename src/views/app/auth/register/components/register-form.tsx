@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui";
-import { hasLegalAge, isRutValid } from "@/lib/utils";
+import { hasLegalAge, isRutValid } from "@/lib";
 
 import { useRegister } from "../hooks";
 
@@ -96,7 +96,10 @@ const formSchema = z
   });
 
 export function RegisterForm() {
-  const { handleRegister, isLoading } = useRegister();
+  const {
+    isLoading,
+    actions: { handleRegister },
+  } = useRegister();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

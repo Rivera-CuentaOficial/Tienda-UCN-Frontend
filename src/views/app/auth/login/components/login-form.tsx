@@ -29,7 +29,11 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
-  const { handleLogin, isLoading, error } = useLogin();
+  const {
+    isLoading,
+    error,
+    actions: { handleLogin },
+  } = useLogin();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
