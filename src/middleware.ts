@@ -26,6 +26,8 @@ export async function middleware(request: NextRequest) {
 
   const isAuthRoute = path.startsWith("/auth/");
   const isAdminRoute = path.startsWith("/admin/");
+  const isOrderRoute =
+    path === "/checkout" || path === "/orders" || path.startsWith("/orders/");
 
   // User is authenticated
   if (token && !isTokenExpired(token)) {
@@ -34,6 +36,11 @@ export async function middleware(request: NextRequest) {
 
     // Redirect authenticated users away from auth routes
     if (isAuthRoute) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+
+    // Redirect admin users away from order routes
+    if (isOrderRoute && userRole?.toLowerCase() === "admin") {
       return NextResponse.redirect(new URL("/", request.url));
     }
 
