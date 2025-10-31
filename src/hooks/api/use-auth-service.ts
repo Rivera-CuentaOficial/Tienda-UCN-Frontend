@@ -7,7 +7,7 @@ import { handleApiError } from "@/lib";
 import { LoginRequest } from "@/models/requests";
 import { RegisterRequest, VerifyEmailRequest } from "@/models/requests";
 import { queryClient } from "@/providers";
-import { authService } from "@/services/auth-service";
+import { authService } from "@/services";
 
 export const useLoginMutation = () => {
   const router = useRouter();

@@ -8,8 +8,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { isValidId } from "@/lib";
-import { productService } from "@/services/product-service";
-import { SingleProductView } from "@/views/app/products/product/[id]";
+import { productService } from "@/services";
+import { SingleProductView } from "@/views/app/products/[id]";
 
 interface SingleProductPageProps {
   params: Promise<{ id: string }>;
