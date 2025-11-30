@@ -12,12 +12,12 @@ import { BaseApiService } from "./base-api-service";
 
 export class ProductService extends BaseApiService {
   constructor() {
-    super("/product");
+    super("/products");
   }
 
   getProductsForCustomer(params?: PaginationQueryParams) {
     return this.httpClient.get<ApiResponse<ProductListForCustomerResponse>>(
-      `${this.baseURL}/customer/products`,
+      `${this.baseURL}`,
       { params } as AxiosRequestConfig
     );
   }
