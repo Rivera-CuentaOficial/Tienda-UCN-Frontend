@@ -12,7 +12,7 @@ export class OrderService extends BaseApiService {
   }
 
   createOrder() {
-    return this.httpClient.post<ApiResponse<string>>(`${this.baseURL}/create`);
+    return this.httpClient.post<ApiResponse<string>>(`${this.baseURL}`);
   }
 
   getOrderDetails(orderCode: string) {
