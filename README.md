@@ -1,87 +1,87 @@
 # Tienda UCN Frontend
 
-This project consists of the simplified implementation of the frontend of the “Tienda UCN” e-commerce platform using Next.js. This includes the creation of views, user session and shopping cart management, proper use of rendering strategies and global states.
+Este proyecto consiste en la implementación simplificada del frontend de la plataforma de comercio electrónico "Tienda UCN" usando Next.js. Esto incluye la creación de vistas, la gestión de sesiones de usuario y del carrito de compras, así como las interacciones básicas necesarias para una tienda en línea.
 
-The website is created with a mobile-first approach, so that it is responsive to different screen sizes and maintains a pleasant and fluid user experience.
+El sitio web se creó con un enfoque mobile-first, por lo que es responsive a diferentes tamaños de pantalla y mantiene una experiencia de usuario agradable y fluida.
 
-In addition, the system is designed to be used in conjunction with a Rest API created with ASP .NET Core, which allows for the management of user and product data.
+Además, el sistema está diseñado para usarse en conjunto con una API REST creada con ASP .NET Core, la cual permite la gestión de datos de usuarios y productos.
 
-## Installation
+## Instalación
 
-The following technologies are required to execute the project
+Se requieren las siguientes tecnologías para ejecutar el proyecto
 
 - [Visual Studio Code 1.89.1+](https://code.visualstudio.com/)
 - [Node 22+](https://nodejs.org/es/download)
 - [Git 2.45.1+](https://git-scm.com/downloads)
 
-Once everything is installed, run the project by following the steps in the next section.
+Una vez que todo esté instalado, ejecuta el proyecto siguiendo los pasos en la siguiente sección.
 
-## Quick Start
+## Inicio rápido
 
-1. Clone the repository on your computer using CMD.
+1. Clona el repositorio en tu computadora desde la terminal.
 
    ```bash
    git clone https://github.com/2kSebaNG/tienda-ucn-frontend.git
    ```
 
-2. Navigate to the project folder.
+2. Ve a la carpeta del proyecto.
 
    ```bash
    cd tienda-ucn-frontend
    ```
 
-3. Open the project using Visual Studio Code.
+3. Abre el proyecto con Visual Studio Code.
 
    ```bash
    code .
    ```
 
-4. Copy the `.env.example` content on the `.env.local` file.
+4. Copia el contenido de `.env.example` al archivo `.env.local`.
 
    ```bash
    cp .env.example .env.local
    ```
 
-5. In the `.env.local` file, replace `your-api-url-here` on the `NEXT_PUBLIC_API_URL` field with the base URL of your API. Be sure to enclose the URL in double quotes (“ ”) to avoid errors when reading the `.env.local` file. If you don't know the URL of your backend, go to the [API Repository](#backend-repository) section and check the port on which the API is running.
+5. En el archivo `.env.local`, reemplaza `your-api-url-here` en la variable `NEXT_PUBLIC_API_URL` por la URL base de tu API. Asegúrate de encerrar la URL entre comillas dobles (" ") para evitar errores al leer las variables de entorno.
 
 ```bash
-# In your .env.local file (Step 5 of the README) replace the API variable with:
+# En tu archivo .env.local (Paso 5 del README) reemplaza la variable de la API con:
 NEXT_PUBLIC_API_URL="http://localhost:5000"
 ```
 
-6. Create your NextAuth secret using the command:
+6. Crea tu Clave de NextAuth usando el comando:
 
    ```bash
    npx auth secret
    ```
 
-   This command will notice that you already have a variable for `AUTH_SECRET` (in this case, that variable is `NEXTAUTH_SECRET`) in your `.env.local file`, so you should enter `y` when it asks **`Overwrite existing AUTH_SECRET? (y/N)`**.
+   Este comando detectará que ya tienes una variable para el secreto de autenticación (en este caso, la variable es `NEXTAUTH_SECRET`) en tu archivo `.env.local`, por lo que deberías responder `y` si te pregunta si deseas sobrescribirla.
 
-   If it is not written directly to your `.env.local`, check if the secret was written on the console and then copy it and replace `your-auth-secret-here` in the `NEXTAUTH_SECRET` field. As in the previous step, enclose the secret in double quotes (“ ”) to avoid problems when loading that value.
+   Si el secreto no se escribió directamente en tu `.env.local`, revisa la consola: el valor de la Clave se mostrará ahí; cópialo y reemplaza `your-auth-secret-here` en la variable `NEXTAUTH_SECRET`. Quedaría, por ejemplo:
 
    ```bash
    NEXTAUTH_SECRET=your-auth-secret-here
    ```
 
-7. Restore the dependencies on a Visual Studio Code terminal.
+7. Restaura las dependencias en un terminal de Visual Studio Code.
 
    ```bash
    npm i
    ```
 
-8. Execute the project in development mode using the same terminal.
+8. Ejecuta el proyecto en modo desarrollo usando el mismo terminal.
 
    ```bash
    npm run dev
    ```
 
-   Once you have followed these steps, you will see that the project is running on `http://localhost:3000`. To see the website, press `ctrl` and click that address.
+   Después de seguir estos pasos, verás que el proyecto se está ejecutando en `http://localhost:3000`. Para ver el sitio, mantén presionada la tecla `ctrl` y haz clic en la dirección o ábrela en tu navegador.
 
-## Backend Repository
+## Repositorio del backend
 
-To test the full functionality of the website, access the API (https://github.com/Rivera-CuentaOficial/Tienda-UCN) and follow the instructions in the README file to run it.
+Para probar la funcionalidad completa del sitio, accede a la API( - <a href="https://github.com/Rivera-CuentaOficial/Tienda-UCN">) y sigue las instrucciones en el archivo README de ese repositorio para ejecutarla.
 
-## Author
+## Autor
 
 - <a href="https://github.com/Rivera-CuentaOficial">Sebastián Rivera González</a>
 - <a href="https://github.com/Bayron-Cruz">Bayron Cruz Ramos</a>
