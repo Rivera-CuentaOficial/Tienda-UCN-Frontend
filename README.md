@@ -82,4 +82,6 @@ To test the full functionality of the website, access the [Backend repository](h
 
 ## Author
 
-- [Sebastián Núñez](https://github.com/2kSebaNG)
+- <a href="https://github.com/2kSebaNG">Sebastián Núñez</a>
+- <a href="https://github.com/Rivera-CuentaOficial">Sebastián Rivera González</a>
+- <a href="https://github.com/Bayron-Cruz">Bayron Cruz Ramos</a>
