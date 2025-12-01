@@ -79,10 +79,9 @@ NEXT_PUBLIC_API_URL="http://localhost:5000"
 
 ## Backend Repository
 
-To test the full functionality of the website, access the [Backend repository](https://github.com/NachoXx25/Tienda-UCN-API) and follow the instructions in the README file to run it.
+To test the full functionality of the website, access the API (https://github.com/Rivera-CuentaOficial/Tienda-UCN) and follow the instructions in the README file to run it.
 
 ## Author
 
-- <a href="https://github.com/2kSebaNG">Sebastián Núñez</a>
 - <a href="https://github.com/Rivera-CuentaOficial">Sebastián Rivera González</a>
 - <a href="https://github.com/Bayron-Cruz">Bayron Cruz Ramos</a>
