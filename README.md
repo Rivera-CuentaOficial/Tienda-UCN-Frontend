@@ -79,7 +79,7 @@ NEXT_PUBLIC_API_URL="http://localhost:5000"
 
 ## Repositorio del backend
 
-Para probar la funcionalidad completa del sitio, accede a la API( - <a href="https://github.com/Rivera-CuentaOficial/Tienda-UCN">) y sigue las instrucciones en el archivo README de ese repositorio para ejecutarla.
+Para probar la funcionalidad completa del sitio, accede a la API( - <a href="https://github.com/Rivera-CuentaOficial/Tienda-UCN"> API </a>) y sigue las instrucciones en el archivo README de ese repositorio para ejecutarla.
 
 ## Autor
 
