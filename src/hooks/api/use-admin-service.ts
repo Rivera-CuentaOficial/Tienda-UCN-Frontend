@@ -35,3 +35,12 @@ export const useGetProductDetailForAdmin = (id: string, enabled = true) => {
     staleTime: 5 * 60 * 1000,
   });
 };
+
+export const useCreateProductMutation = () => {
+  return useMutation({
+    mutationFn: async (productFormData: FormData) => {
+      const response = await adminService.createProduct(productFormData);
+      return response.data;
+    },
+  });
+};

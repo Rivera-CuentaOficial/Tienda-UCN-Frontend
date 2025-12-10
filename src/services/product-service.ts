@@ -26,16 +26,6 @@ export class ProductService extends BaseApiService {
       `${this.baseURL}/${id}`
     );
   }
-
-  createProduct(productFormData: FormData) {
-    return this.httpClient.post<ApiResponse<string>>(
-      `${this.baseURL}`,
-      productFormData,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-      }
-    );
-  }
 }
 
 export const productService = new ProductService();

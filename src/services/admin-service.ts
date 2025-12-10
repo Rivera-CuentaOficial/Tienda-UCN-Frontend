@@ -32,6 +32,15 @@ export class AdminService extends BaseApiService {
       `${this.baseURL}/products/${id}/toggle-status`
     );
   }
+  createProduct(productFormData: FormData) {
+    return this.httpClient.post<ApiResponse<string>>(
+      `${this.baseURL}/products`,
+      productFormData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+  }
 }
 
 export const adminService = new AdminService();

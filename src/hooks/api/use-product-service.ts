@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { isValidId } from "@/lib";
 import { PaginationQueryParams } from "@/models/requests";
@@ -25,14 +25,5 @@ export const useGetProductDetail = (id: string, enabled = true) => {
     },
     enabled: enabled && isValidId(id),
     staleTime: 5 * 60 * 1000,
-  });
-};
-
-export const useCreateProductMutation = () => {
-  return useMutation({
-    mutationFn: async (productFormData: FormData) => {
-      const response = await productService.createProduct(productFormData);
-      return response.data;
-    },
   });
 };

@@ -1,4 +1,5 @@
 export {
+  useCreateProductMutation,
   useGetProductDetailForAdmin,
   useGetProductsForAdmin,
   useToggleProductAvailabilityMutation,
@@ -24,7 +25,6 @@ export {
   useGetOrdersList,
 } from "./use-order-service";
 export {
-  useCreateProductMutation,
   useGetProductDetail,
   useGetProductsForCustomer,
 } from "./use-product-service";
