@@ -2,14 +2,17 @@ import { useRouter } from "next/navigation";
 import { MouseEvent, useState } from "react";
 
 import { useGetProductsForCustomer } from "@/hooks/api";
+import { useUrlSearch } from "@/hooks/common";
 import { PaginationQueryParams } from "@/models/requests";
 
 export const useProducts = () => {
+  // Url search params
+  const { updateSearchParam, getSearchParam } = useUrlSearch();
   // State
   const [filters, setFilters] = useState<PaginationQueryParams>({
-    pageNumber: 1,
-    pageSize: 10,
-    searchTerm: "",
+    pageNumber: Number(getSearchParam("pageNumber", "1")),
+    pageSize: Number(getSearchParam("pageSize", "10")),
+    searchTerm: getSearchParam("searchTerm", ""),
   });
 
   const router = useRouter();
@@ -62,6 +65,18 @@ export const useProducts = () => {
 
   // Actions
   const handleUpdateFilters = (newFilters: Partial<PaginationQueryParams>) => {
+    // Update URL search params
+    if (newFilters.pageNumber !== undefined) {
+      updateSearchParam("pageNumber", String(newFilters.pageNumber));
+    }
+    if (newFilters.pageSize !== undefined) {
+      updateSearchParam("pageSize", String(newFilters.pageSize));
+    }
+    if (newFilters.searchTerm !== undefined) {
+      updateSearchParam("searchTerm", newFilters.searchTerm);
+    }
+
+    // Update local state
     setFilters(prev => ({ ...prev, ...newFilters }));
   };
 

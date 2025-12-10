@@ -2,6 +2,7 @@ import { toast } from "sonner";
 
 import { useResendCodeMutation } from "@/hooks/api";
 import { handleApiError } from "@/lib";
+import { ResendVerificationCodeRequest } from "@/models/requests";
 
 export const useResendCode = () => {
   // API Call
@@ -9,9 +10,9 @@ export const useResendCode = () => {
     useResendCodeMutation();
 
   // Actions
-  const handleResend = async (email: string) => {
+  const handleResend = async (data: ResendVerificationCodeRequest) => {
     try {
-      await resendCodeAsync(email);
+      await resendCodeAsync(data);
       toast.success("Código reenviado exitosamente. Revisa tu email.");
     } catch (error) {
       const errorMessage = handleApiError(error).details;
