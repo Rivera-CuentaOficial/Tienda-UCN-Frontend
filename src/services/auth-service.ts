@@ -2,6 +2,7 @@ import { ApiResponse } from "@/models/generics";
 import {
   LoginRequest,
   RegisterRequest,
+  ResendVerificationCodeRequest,
   VerifyEmailRequest,
 } from "@/models/requests";
 
@@ -33,12 +34,12 @@ export class AuthService extends BaseApiService {
     );
   }
 
-  resendVerificationCode(email: string) {
+  resendVerificationCode(
+    resendVerificationCodeData: ResendVerificationCodeRequest
+  ) {
     return this.httpClient.post<ApiResponse<string>>(
-      `${this.baseURL}/resend-email-verification-code`,
-      {
-        email,
-      }
+      `${this.baseURL}/resend-verify-email`,
+      resendVerificationCodeData
     );
   }
 }

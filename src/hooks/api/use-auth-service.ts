@@ -7,6 +7,7 @@ import { handleApiError } from "@/lib";
 import {
   LoginRequest,
   RegisterRequest,
+  ResendVerificationCodeRequest,
   VerifyEmailRequest,
 } from "@/models/requests";
 import { queryClient } from "@/providers";
@@ -74,8 +75,8 @@ export const useVerifyEmailMutation = () => {
 
 export const useResendCodeMutation = () => {
   return useMutation({
-    mutationFn: async (email: string) => {
-      await authService.resendVerificationCode(email);
+    mutationFn: async (data: ResendVerificationCodeRequest) => {
+      await authService.resendVerificationCode(data);
     },
   });
 };
