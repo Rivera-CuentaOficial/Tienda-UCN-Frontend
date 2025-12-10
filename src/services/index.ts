@@ -1,3 +1,4 @@
+export { AdminService, adminService } from "./admin-service";
 export { AuthService, authService } from "./auth-service";
 export { BaseApiService } from "./base-api-service";
 export { CartService, cartService } from "./cart-service";

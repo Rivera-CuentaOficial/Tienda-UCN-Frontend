@@ -1,0 +1,37 @@
+import { AxiosRequestConfig } from "axios";
+
+import { ApiResponse } from "@/models/generics";
+import { PaginationQueryParams } from "@/models/requests";
+import {
+  ProductForAdminResponse,
+  ProductListForAdminResponse,
+} from "@/models/responses";
+
+import { BaseApiService } from "./base-api-service";
+
+export class AdminService extends BaseApiService {
+  constructor() {
+    super("/admin");
+  }
+
+  getProductsForAdmin(params?: PaginationQueryParams) {
+    return this.httpClient.get<ApiResponse<ProductListForAdminResponse>>(
+      `${this.baseURL}/products`,
+      { params } as AxiosRequestConfig
+    );
+  }
+
+  getProductDetail(id: string) {
+    return this.httpClient.get<ApiResponse<ProductForAdminResponse>>(
+      `${this.baseURL}/products/${id}`
+    );
+  }
+
+  toggleProductAvailability(id: string) {
+    return this.httpClient.patch<ApiResponse<string>>(
+      `${this.baseURL}/products/${id}/toggle-status`
+    );
+  }
+}
+
+export const adminService = new AdminService();
