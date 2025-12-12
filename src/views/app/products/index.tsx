@@ -52,6 +52,7 @@ export default function ProductsView() {
             <ProductCard
               key={product.id}
               product={product}
+              discountedPrice={actions.handleCalculateDiscountedPrice}
               isPriority={product.mainImageURL.includes("default")}
               onClick={() => actions.handleRedirectToProductDetail(product.id)}
             />

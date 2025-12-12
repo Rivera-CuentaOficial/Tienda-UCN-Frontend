@@ -3,7 +3,7 @@ import { AxiosRequestConfig } from "axios";
 import { ApiResponse } from "@/models/generics";
 import { PaginationQueryParams } from "@/models/requests";
 import {
-  ProductForAdminResponse,
+  ProductDetailForAdminResponse,
   ProductListForAdminResponse,
 } from "@/models/responses";
 
@@ -22,7 +22,7 @@ export class AdminService extends BaseApiService {
   }
 
   getProductDetail(id: string) {
-    return this.httpClient.get<ApiResponse<ProductForAdminResponse>>(
+    return this.httpClient.get<ApiResponse<ProductDetailForAdminResponse>>(
       `${this.baseURL}/products/${id}`
     );
   }

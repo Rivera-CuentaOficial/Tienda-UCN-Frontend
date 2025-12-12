@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { AdminProductsView } from "@/views";
 
 export const metadata = {
@@ -6,5 +8,9 @@ export const metadata = {
 };
 
 export default function AdminProductsPage() {
-  return <AdminProductsView />;
+  return (
+    <Suspense fallback={<div>Cargando productos...</div>}>
+      <AdminProductsView />
+    </Suspense>
+  );
 }

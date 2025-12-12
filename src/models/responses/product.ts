@@ -30,6 +30,24 @@ export interface ProductDetailForCustomerResponse {
   isAvailable: boolean;
 }
 
+export interface ProductDetailForAdminResponse {
+  id: number;
+  title: string;
+  description: string;
+  price: string;
+  discount: number;
+  stock: number;
+  isAvailable: boolean;
+  categoryName: string;
+  brandName: string;
+  status: string;
+  isDeleted: boolean;
+  imagesURL: string[];
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+}
+
 export interface ProductForAdminResponse {
   id: number;
   title: string;

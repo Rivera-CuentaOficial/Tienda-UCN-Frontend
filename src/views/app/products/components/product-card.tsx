@@ -2,18 +2,21 @@ import { Check, Loader2, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui";
+import { thousandSeparatorPipe } from "@/lib/utils";
 import { ProductForCustomerResponse } from "@/models/responses";
 
 import { useProductsCart } from "../hooks";
 
 interface ProductCardProps {
   product: ProductForCustomerResponse;
+  discountedPrice: (price: string, discount: number) => string;
   onClick?: () => void;
   isPriority?: boolean;
 }
 
 export const ProductCard = ({
   product,
+  discountedPrice,
   onClick,
   isPriority,
 }: ProductCardProps) => {
@@ -43,7 +46,15 @@ export const ProductCard = ({
       </div>
       <div className="p-4">
         <h3 className="font-semibold text-lg">{product.title}</h3>
-        <p className="mt-2 text-blue-700 font-bold text-xl">{product.price}</p>
+        <p className="mt-2 text-blue-700 font-bold text-xl">
+          $
+          {thousandSeparatorPipe(
+            parseFloat(discountedPrice(product.price, product.discount))
+          )}
+        </p>
+        <span className="bg-red-100 text-red-800 text-xs font-medium px-2 py-1 rounded">
+          -{product.discount}%
+        </span>
         <Button
           className="mt-4 w-full cursor-pointer"
           onClick={e => {

@@ -1,5 +1,6 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+import { isValidId } from "@/lib";
 import { PaginationQueryParams } from "@/models/requests";
 import { adminService } from "@/services";
 
@@ -16,10 +17,18 @@ export const useGetProductsForAdmin = (
 };
 
 export const useToggleProductAvailabilityMutation = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (id: string) => {
       const response = await adminService.toggleProductAvailability(id);
       return response.data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({
+        queryKey: ["products", "admin", "detail", id],
+      });
+      queryClient.invalidateQueries({ queryKey: ["products", "admin"] });
     },
   });
 };
@@ -31,7 +40,7 @@ export const useGetProductDetailForAdmin = (id: string, enabled = true) => {
       const response = await adminService.getProductDetail(id);
       return response.data;
     },
-    enabled,
+    enabled: enabled && isValidId(id),
     staleTime: 5 * 60 * 1000,
   });
 };

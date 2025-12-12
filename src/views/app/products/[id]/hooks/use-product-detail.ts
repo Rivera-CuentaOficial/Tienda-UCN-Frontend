@@ -27,7 +27,10 @@ export const useProductDetail = (id: string) => {
   };
 
   const handleCalculateDiscountedPrice = (price: string, discount: number) => {
-    return (parseFloat(price) * (1 - discount)).toFixed(2);
+    const cleanPrice = parseFloat(
+      price.replaceAll(",", "").replace(".", ",").replace("$", "")
+    );
+    return (cleanPrice * (1 - discount * 0.01)).toFixed(2);
   };
 
   return {
