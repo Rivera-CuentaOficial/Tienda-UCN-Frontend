@@ -67,6 +67,9 @@ export default function AdminProductsView() {
                 isToggling={
                   isToggling && toggledProductId === product.id.toString()
                 }
+                onClick={() =>
+                  actions.handleRedirectToProductDetail(product.id)
+                }
               />
             ))
           )}

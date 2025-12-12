@@ -38,10 +38,9 @@ export const hasLegalAge = (birthDate: Date): boolean => {
 };
 
 export function thousandSeparatorPipe(num: number): string {
-  return num
-    .toFixed(0)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const [integer, decimal] = num.toFixed(2).split(".");
+  const formattedInteger = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return 2 > 0 ? `${formattedInteger},${decimal}` : formattedInteger;
 }
 
 export function formatDate(date: string): string {

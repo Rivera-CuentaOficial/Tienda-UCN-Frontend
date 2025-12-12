@@ -1,4 +1,10 @@
 export {
+  useCreateProductMutation,
+  useGetProductDetailForAdmin,
+  useGetProductsForAdmin,
+  useToggleProductAvailabilityMutation,
+} from "./use-admin-service";
+export {
   useLoginMutation,
   useLogoutMutation,
   useRegisterMutation,
@@ -19,9 +25,6 @@ export {
   useGetOrdersList,
 } from "./use-order-service";
 export {
-  useCreateProductMutation,
   useGetProductDetail,
-  useGetProductsForAdmin,
   useGetProductsForCustomer,
-  useToggleProductAvailabilityMutation,
 } from "./use-product-service";

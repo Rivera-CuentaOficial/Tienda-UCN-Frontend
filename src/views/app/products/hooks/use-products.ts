@@ -122,6 +122,13 @@ export const useProducts = () => {
     refetch();
   };
 
+  const handleCalculateDiscountedPrice = (price: string, discount: number) => {
+    const cleanPrice = parseFloat(
+      price.replaceAll(",", "").replace(".", ",").replace("$", "")
+    );
+    return (cleanPrice * (1 - discount * 0.01)).toFixed(2);
+  };
+
   return {
     // Product data
     products,
@@ -148,6 +155,7 @@ export const useProducts = () => {
       handleNextPage,
       handlePageClick,
       handleRetry,
+      handleCalculateDiscountedPrice,
     },
   };
 };
