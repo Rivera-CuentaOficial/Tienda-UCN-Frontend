@@ -4,8 +4,6 @@ import { toast } from "sonner";
 
 import { isSessionExpired } from "@/lib";
 
-let isLoggingOut = false; // To prevent multiple logout attempts
-
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 10000,
@@ -23,16 +21,8 @@ axiosInstance.interceptors.request.use(async config => {
 
     // If there is a session, check if it's expired
     if (session && isSessionExpired(session)) {
-      if (isLoggingOut) {
-        isLoggingOut = true;
-        toast.error(
-          "Tu sesión ha expirado. Por favor, inicia sesión de nuevo."
-        );
-        await signOut({ redirect: true });
-        setTimeout(() => {
-          isLoggingOut = false;
-        }, 3000); // Reset after 3 seconds to allow future logouts
-      }
+      toast.error("Tu sesión ha expirado. Por favor, inicia sesión de nuevo.");
+      await signOut({ redirect: false });
       return Promise.reject(new Error("Token expired"));
     }
 
