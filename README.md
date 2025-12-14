@@ -42,13 +42,25 @@ Una vez que todo esté instalado, ejecuta el proyecto siguiendo los pasos en la 
    cp .env.example .env.local
    ```
 
-5. En el archivo `.env.local`, reemplaza `your-api-url-here` en la variable `NEXT_PUBLIC_API_URL` por la URL base de tu API. Asegúrate de encerrar la URL entre comillas dobles (" ") para evitar errores al leer las variables de entorno.
+5. En el archivo `.env.local`, reemplaza `your-api-url-here` en la variable `NEXT_PUBLIC_API_URL` por la URL base de tu API. 
+Para encontrar la URL, dentro del repositorio del backend enceuntra el archivo
+*launchSettings* en la carpeta *Properties*. Tu URL estara en:
+
+```json
+"profiles": {
+    "http": {
+      ,,,
+      "applicationUrl": "http://tu-url",
+      ,,,
+      }
+    }
+```
+   Asegúrate de encerrar la URL entre comillas dobles (" ") para evitar errores al leer las variables de entorno.
 
 ```bash
 # En tu archivo .env.local (Paso 5 del README) reemplaza la variable de la API con:
-NEXT_PUBLIC_API_URL="http://localhost:5000"
+NEXT_PUBLIC_API_URL="http://tu-url"
 ```
-
 6. Crea tu Clave de NextAuth usando el comando:
 
    ```bash
@@ -79,9 +91,9 @@ NEXT_PUBLIC_API_URL="http://localhost:5000"
 
 ## Repositorio del backend
 
-Para probar la funcionalidad completa del sitio, accede a la API( - <a href="https://github.com/Rivera-CuentaOficial/Tienda-UCN"> API </a>) y sigue las instrucciones en el archivo README de ese repositorio para ejecutarla.
+   Para probar la funcionalidad completa del sitio, accede a la API( - <a href="https://github.com/Rivera-CuentaOficial/Tienda-UCN"> API </a>) y sigue las instrucciones en el archivo README de ese repositorio para ejecutarla.
 
-## Autor
+## Autores
 
 - <a href="https://github.com/Rivera-CuentaOficial">Sebastián Rivera González</a>
 - <a href="https://github.com/Bayron-Cruz">Bayron Cruz Ramos</a>
