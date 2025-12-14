@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 
 import { ApiResponse } from "@/models/generics";
-import { PaginationQueryParams } from "@/models/requests";
+import { ApplyDiscountRequest, PaginationQueryParams } from "@/models/requests";
 import {
   ProductDetailForAdminResponse,
   ProductListForAdminResponse,
@@ -32,6 +32,13 @@ export class AdminService extends BaseApiService {
       `${this.baseURL}/products/${id}/toggle-status`
     );
   }
+
+  deleteProduct(id: string) {
+    return this.httpClient.delete<ApiResponse<string>>(
+      `${this.baseURL}/products/${id}`
+    );
+  }
+
   createProduct(productFormData: FormData) {
     return this.httpClient.post<ApiResponse<string>>(
       `${this.baseURL}/products`,
@@ -39,6 +46,26 @@ export class AdminService extends BaseApiService {
       {
         headers: { "Content-Type": "multipart/form-data" },
       }
+    );
+  }
+
+  updateProduct(id: string, productFormData: FormData) {
+    return this.httpClient.put<ApiResponse<string>>(
+      `${this.baseURL}/products/${id}`,
+      productFormData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+  }
+
+  applyDiscount(id: string, discount: number) {
+    const requestBody: ApplyDiscountRequest = {
+      discount: discount,
+    };
+    return this.httpClient.patch<ApiResponse<string>>(
+      `${this.baseURL}/products/${id}/discount`,
+      requestBody
     );
   }
 }

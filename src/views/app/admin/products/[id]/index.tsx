@@ -6,6 +6,7 @@ import { Button } from "@/components/ui";
 import { handleApiError } from "@/lib";
 
 import {
+  ProductDeletedBanner,
   ProductDetailActions,
   ProductDetailCard,
   ProductDetailEmpty,
@@ -23,7 +24,7 @@ interface AdminProductDetailViewProps {
 export default function AdminProductDetailView({
   id,
 }: AdminProductDetailViewProps) {
-  const { productDetail, isLoading, error, actions } =
+  const { productDetail, isLoading, error, actions, isDeleting } =
     useProductDetailAdmin(id);
 
   if (isLoading) {
@@ -58,6 +59,13 @@ export default function AdminProductDetailView({
       </Button>
       {/* Product Detail Header */}
       <ProductDetailHeader productDetail={productDetail} />
+      {/* Deleted Banner */}
+      {productDetail.isDeleted ? (
+        <ProductDeletedBanner
+          productTitle={productDetail.title}
+          deletedAt={productDetail.deletedAt}
+        />
+      ) : null}
       {/* Product Detail Card */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Images carousel */}
@@ -72,15 +80,22 @@ export default function AdminProductDetailView({
         />
       </div>
       {/* Admin actions */}
-      <ProductDetailActions
-        product={productDetail}
-        onEdit={() => {
-          /* TODO: Navigate to edit page */
-        }}
-        onToggleAvailability={() => {
-          actions.handleToggleAvailability(productDetail.id.toString());
-        }}
-      />
+      {!productDetail.isDeleted && (
+        <ProductDetailActions
+          product={productDetail}
+          onEdit={() => {
+            actions.handleEdit(productDetail.id.toString());
+          }}
+          onUpdateDiscount={discount => actions.handleApplyDiscount(discount)}
+          onToggleAvailability={() => {
+            actions.handleToggleAvailability(productDetail.id.toString());
+          }}
+          onDelete={() => {
+            actions.handleDelete(productDetail.id.toString());
+          }}
+          isDeleting={isDeleting}
+        />
+      )}
     </div>
   );
 }

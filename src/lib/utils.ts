@@ -51,3 +51,34 @@ export function formatDate(date: string): string {
 
   return `${day}/${month}/${year}`;
 }
+
+export async function urlToFile(
+  url: string,
+  fileName: string,
+  mimeType: string = "image/jpeg"
+): Promise<File> {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  return new File([blob], fileName, { type: mimeType });
+}
+
+export async function convertUrlsToFiles(urls: string[]): Promise<File[]> {
+  const filePromises = urls.map((url, index) => {
+    const extension = url.split(".").pop()?.toLowerCase() || "jpg";
+    const mimeType = `image/${extension === "jpg" ? "jpeg" : extension}`;
+    return urlToFile(url, `existing-image-${index + 1}.${extension}`, mimeType);
+  });
+
+  return Promise.all(filePromises);
+}
+
+export function parsePrice(price: string): number {
+  if (typeof price === "number") return price;
+
+  const cleanPrice = price
+    .replace(/\,/g, "")
+    .replace(".", ",")
+    .replace("$", "");
+  const parsed = parseFloat(cleanPrice);
+  return isNaN(parsed) ? 0 : parsed;
+}

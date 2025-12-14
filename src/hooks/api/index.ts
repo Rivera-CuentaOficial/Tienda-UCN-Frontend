@@ -1,8 +1,11 @@
 export {
+  useApplyDiscountMutation,
   useCreateProductMutation,
+  useDeleteProductMutation,
   useGetProductDetailForAdmin,
   useGetProductsForAdmin,
   useToggleProductAvailabilityMutation,
+  useUpdateProductMutation,
 } from "./use-admin-service";
 export {
   useLoginMutation,
