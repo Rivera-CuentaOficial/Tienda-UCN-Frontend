@@ -1,6 +1,7 @@
 export { default as HomeView } from "./app";
 export { default as NewProductView } from "./app/admin/new-product";
 export { default as AdminProductsView } from "./app/admin/products";
+export { default as AdminProductDetailView } from "./app/admin/products/[id]";
 export { default as LoginView } from "./app/auth/login";
 export { default as RegisterView } from "./app/auth/register";
 export { default as VerifyEmailView } from "./app/auth/verify-email";

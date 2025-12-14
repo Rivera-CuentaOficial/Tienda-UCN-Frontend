@@ -1,7 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
-
 import { handleApiError } from "@/lib";
 import { ProductForCustomerResponse } from "@/models/responses";
 
@@ -20,65 +18,62 @@ export default function ProductsView() {
     useProducts();
 
   return (
-    <Suspense fallback={<div>Cargando...</div>}>
-      <div className="flex flex-col gap-y-4">
-        <h1 className="flex justify-center items-center text-2xl sm:text-5xl p-2 pt-4 italic">
-          Productos disponibles
-        </h1>
+    <div className="flex flex-col gap-y-4">
+      <h1 className="flex justify-center items-center text-2xl sm:text-5xl p-2 pt-4 italic">
+        Productos disponibles
+      </h1>
 
-        <FilterBar
-          maxPageSize={pagination.totalCount}
-          onSearch={actions.handleSearch}
-          onPageSizeChange={actions.handleChangePageSize}
-          currentPageSize={filters.pageSize ?? 1}
-          currentSearch={filters.searchTerm ?? ""}
-        />
+      <FilterBar
+        maxPageSize={pagination.totalCount}
+        onSearch={actions.handleSearch}
+        onPageSizeChange={actions.handleChangePageSize}
+        currentPageSize={filters.pageSize ?? 1}
+        currentSearch={filters.searchTerm ?? ""}
+      />
 
-        {error &&
-          !handleApiError(error).message.includes("Producto no encontrado") && (
-            <ProductsErrorState
-              error={handleApiError(error).details}
-              canRetry={handleApiError(error).canRetry}
-              onRetry={actions.handleRetry}
+      {error &&
+        !handleApiError(error).message.includes("Producto no encontrado") && (
+          <ProductsErrorState
+            error={handleApiError(error).details}
+            canRetry={handleApiError(error).canRetry}
+            onRetry={actions.handleRetry}
+          />
+        )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-5 mb-5">
+        {isLoading ? (
+          <>
+            {Array.from({ length: 10 }).map((_, index) => (
+              <ProductCardSkeleton key={`skeleton-${index}`} />
+            ))}
+          </>
+        ) : (
+          products.map((product: ProductForCustomerResponse) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              discountedPrice={actions.handleCalculateDiscountedPrice}
+              isPriority={product.mainImageURL.includes("default")}
+              onClick={() => actions.handleRedirectToProductDetail(product.id)}
             />
-          )}
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-5 mb-5">
-          {isLoading ? (
-            <>
-              {Array.from({ length: 10 }).map((_, index) => (
-                <ProductCardSkeleton key={`skeleton-${index}`} />
-              ))}
-            </>
-          ) : (
-            products.map((product: ProductForCustomerResponse) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                isPriority={product.mainImageURL.includes("default")}
-                onClick={() =>
-                  actions.handleRedirectToProductDetail(product.id)
-                }
-              />
-            ))
-          )}
-        </div>
-
-        <ProductsPagination
-          currentPage={pagination.currentPage}
-          totalPages={pagination.totalPages}
-          pageNumbers={pagination.pageNumbers}
-          onPreviousPage={actions.handlePreviousPage}
-          onNextPage={actions.handleNextPage}
-          onPageClick={actions.handlePageClick}
-        />
-
-        {products.length === 0 &&
-          !isLoading &&
-          handleApiError(error).message.includes("Producto no encontrado") && (
-            <ProductsEmptyState />
-          )}
+          ))
+        )}
       </div>
-    </Suspense>
+
+      <ProductsPagination
+        currentPage={pagination.currentPage}
+        totalPages={pagination.totalPages}
+        pageNumbers={pagination.pageNumbers}
+        onPreviousPage={actions.handlePreviousPage}
+        onNextPage={actions.handleNextPage}
+        onPageClick={actions.handlePageClick}
+      />
+
+      {products.length === 0 &&
+        !isLoading &&
+        handleApiError(error).message.includes("Producto no encontrado") && (
+          <ProductsEmptyState />
+        )}
+    </div>
   );
 }

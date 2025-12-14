@@ -1,7 +1,7 @@
 export interface LoginRequest {
   email: string;
   password: string;
-  rememberMe: boolean;
+  rememberMe?: boolean;
 }
 
 export interface RegisterRequest {
@@ -19,4 +19,8 @@ export interface RegisterRequest {
 export interface VerifyEmailRequest {
   email: string;
   verificationCode: string;
+}
+
+export interface ResendVerificationCodeRequest {
+  email: string;
 }

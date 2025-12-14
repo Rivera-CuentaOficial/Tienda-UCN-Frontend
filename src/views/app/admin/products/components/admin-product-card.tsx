@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 
 import {
@@ -19,12 +17,14 @@ import { AdminConfirmationDialog } from "./admin-confirmation-dialog";
 interface AdminProductCardProps {
   product: ProductForAdminResponse;
   onToggleAvailability?: (id: string) => void;
+  onClick?: () => void;
   isToggling?: boolean;
 }
 
 export const AdminProductCard = ({
   product,
   onToggleAvailability,
+  onClick,
   isToggling,
 }: AdminProductCardProps) => {
   return (
@@ -34,13 +34,16 @@ export const AdminProductCard = ({
         isToggling && "opacity-60"
       )}
     >
-      <div className="relative h-48 w-full overflow-hidden">
+      <div
+        className="relative h-48 w-full overflow-hidden cursor-pointer group"
+        onClick={onClick}
+      >
         <Image
           src={product.mainImageURL}
           alt={product.title}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-contain"
+          className="object-contain transition-transform duration-300 group-hover:scale-105"
         />
         {!product.isAvailable && (
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -50,7 +53,10 @@ export const AdminProductCard = ({
       </div>
 
       <CardHeader className="flex flex-col gap-1">
-        <CardTitle className="text-lg font-semibold leading-tight">
+        <CardTitle
+          className="text-lg font-semibold leading-tight cursor-pointer hover:text-primary hover:underline transition-colors"
+          onClick={onClick}
+        >
           {product.title}
         </CardTitle>
         <p className="text-sm text-muted-foreground">

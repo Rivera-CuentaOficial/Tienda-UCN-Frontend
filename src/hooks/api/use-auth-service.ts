@@ -3,10 +3,11 @@ import { useRouter } from "next/navigation";
 import { signIn, signOut } from "next-auth/react";
 import { toast } from "sonner";
 
-import { handleApiError } from "@/lib";
+import { extractUserFromJwt, handleApiError } from "@/lib";
 import {
   LoginRequest,
   RegisterRequest,
+  ResendVerificationCodeRequest,
   VerifyEmailRequest,
 } from "@/models/requests";
 import { queryClient } from "@/providers";
@@ -34,15 +35,22 @@ export const useLoginMutation = () => {
           throw new Error("Error al crear la sesión");
         }
 
-        return result;
+        const userInfo = extractUserFromJwt(response.data.data);
+        return { result, role: userInfo.role };
       } catch (error) {
         const apiError = handleApiError(error);
         throw new Error(apiError.details);
       }
     },
-    onSuccess: () => {
+    onSuccess: data => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      router.replace("/products");
+
+      const userRole = data.role.toLowerCase();
+      if (userRole === "admin") {
+        router.replace("/admin/products");
+      } else {
+        router.replace("/products");
+      }
     },
   });
 };
@@ -74,8 +82,8 @@ export const useVerifyEmailMutation = () => {
 
 export const useResendCodeMutation = () => {
   return useMutation({
-    mutationFn: async (email: string) => {
-      await authService.resendVerificationCode(email);
+    mutationFn: async (data: ResendVerificationCodeRequest) => {
+      await authService.resendVerificationCode(data);
     },
   });
 };

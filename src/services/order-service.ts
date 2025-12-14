@@ -8,22 +8,22 @@ import { BaseApiService } from "./base-api-service";
 
 export class OrderService extends BaseApiService {
   constructor() {
-    super("/order");
+    super("/orders");
   }
 
   createOrder() {
-    return this.httpClient.post<ApiResponse<string>>(`${this.baseURL}/create`);
+    return this.httpClient.post<ApiResponse<string>>(`${this.baseURL}`);
   }
 
   getOrderDetails(orderCode: string) {
     return this.httpClient.get<ApiResponse<Order>>(
-      `${this.baseURL}/detail/${orderCode}`
+      `${this.baseURL}/${orderCode}`
     );
   }
 
   getOrdersList(params?: PaginationQueryParams) {
     return this.httpClient.get<ApiResponse<GetOrdersResponse>>(
-      `${this.baseURL}/user-orders`,
+      `${this.baseURL}`,
       {
         params,
       } as AxiosRequestConfig

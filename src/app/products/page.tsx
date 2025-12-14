@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { ProductsView } from "@/views";
 
 export const metadata = {
@@ -6,5 +8,9 @@ export const metadata = {
 };
 
 export default function ProductsPage() {
-  return <ProductsView />;
+  return (
+    <Suspense fallback={<div>Cargando productos...</div>}>
+      <ProductsView />
+    </Suspense>
+  );
 }

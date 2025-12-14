@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import { MouseEvent, useState } from "react";
 import { toast } from "sonner";
 
@@ -5,15 +6,19 @@ import {
   useGetProductsForAdmin,
   useToggleProductAvailabilityMutation,
 } from "@/hooks/api";
+import { useUrlSearch } from "@/hooks/common";
 import { handleApiError } from "@/lib";
 import { PaginationQueryParams } from "@/models/requests";
 
 export const useAdminProducts = () => {
+  const router = useRouter();
+  // Url search params
+  const { updateSearchParam, getSearchParam } = useUrlSearch();
   // State
   const [filters, setFilters] = useState<PaginationQueryParams>({
-    pageNumber: 1,
-    pageSize: 10,
-    searchTerm: "",
+    pageNumber: Number(getSearchParam("pageNumber", "1")),
+    pageSize: Number(getSearchParam("pageSize", "10")),
+    searchTerm: getSearchParam("searchTerm", ""),
   });
 
   const [toggledProductId, setToggledProductId] = useState<string | null>(null);
@@ -70,6 +75,18 @@ export const useAdminProducts = () => {
 
   // Actions
   const handleUpdateFilters = (newFilters: Partial<PaginationQueryParams>) => {
+    // Update URL search params
+    if (newFilters.pageNumber !== undefined) {
+      updateSearchParam("pageNumber", String(newFilters.pageNumber));
+    }
+    if (newFilters.pageSize !== undefined) {
+      updateSearchParam("pageSize", String(newFilters.pageSize));
+    }
+    if (newFilters.searchTerm !== undefined) {
+      updateSearchParam("searchTerm", newFilters.searchTerm);
+    }
+
+    // Update local state
     setFilters(prev => ({ ...prev, ...newFilters }));
   };
 
@@ -87,10 +104,13 @@ export const useAdminProducts = () => {
 
   const handleToggleProductAvailability = async (productId: string) => {
     try {
+      const product = products.find(p => p.id === Number(productId));
       setToggledProductId(productId);
       await toggleProductAvailability(productId);
       await refetch();
-      toast.success("Producto actualizado exitosamente");
+      toast.success(
+        `Producto ${product?.isAvailable ? "desactivado" : "activado"} exitosamente`
+      );
     } catch (error) {
       const apiError = handleApiError(error).details;
       toast.error(apiError);
@@ -123,6 +143,10 @@ export const useAdminProducts = () => {
     refetch();
   };
 
+  const handleRedirectToProductDetail = (productId: number) => {
+    router.push(`/admin/products/${productId}`);
+  };
+
   return {
     // Product data
     products,
@@ -151,6 +175,7 @@ export const useAdminProducts = () => {
       handleNextPage,
       handlePageClick,
       handleRetry,
+      handleRedirectToProductDetail,
     },
   };
 };

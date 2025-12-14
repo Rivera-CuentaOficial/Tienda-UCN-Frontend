@@ -3,6 +3,7 @@
 import { Check, Minus, Plus, ShoppingCart } from "lucide-react";
 
 import { Button } from "@/components/ui";
+import { thousandSeparatorPipe } from "@/lib";
 import { ProductDetailForCustomerResponse } from "@/models/responses";
 
 import { useProductDetailCart } from "../hooks";
@@ -56,13 +57,16 @@ export const ProductInfoSection = ({
         {product.discount ? (
           <div className="flex items-center space-x-2">
             <h3 className="text-2xl font-bold text-green-600">
-              {discountedPrice(product.price, product.discount)}
+              $
+              {thousandSeparatorPipe(
+                parseFloat(discountedPrice(product.price, product.discount))
+              )}
             </h3>
             <h4 className="text-lg line-through text-gray-500">
               {product.price}
             </h4>
             <span className="bg-red-100 text-red-800 text-xs font-medium px-2 py-1 rounded">
-              -{Math.round(product.discount * 100)}%
+              -{product.discount}%
             </span>
           </div>
         ) : (

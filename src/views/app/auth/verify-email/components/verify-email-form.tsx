@@ -59,7 +59,7 @@ export function VerifyEmailForm({ email }: Props) {
   };
 
   const onResend = async () => {
-    await handleResend(form.getValues("email"));
+    await handleResend({ email: form.getValues("email") });
   };
 
   return (

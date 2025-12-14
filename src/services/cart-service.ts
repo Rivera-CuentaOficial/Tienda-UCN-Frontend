@@ -31,7 +31,7 @@ export class CartService extends BaseApiService {
 
   updateItemQuantity(item: CartItemRequest) {
     return this.httpClient.patch<ApiResponse<GetCartResponse>>(
-      `${this.baseURL}/items`,
+      `${this.baseURL}/items/${item.productId}`,
       item,
       {
         headers: { "Content-Type": "multipart/form-data" },
