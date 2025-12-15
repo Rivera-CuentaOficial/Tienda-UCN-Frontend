@@ -60,11 +60,39 @@ function Carousel({
   );
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
+  const lastInteractionWasKeyboard = React.useRef(false);
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) return;
     setCanScrollPrev(api.canScrollPrev());
     setCanScrollNext(api.canScrollNext());
+
+    // Manage focus and tabindex on slides for accessibility
+    try {
+      const slides = api.slideNodes?.() ?? [];
+      const selected = api.selectedScrollSnap?.() ?? 0;
+
+      slides.forEach((el: HTMLElement, i: number) => {
+        if (i === selected) {
+          el.setAttribute("tabindex", "0");
+          el.setAttribute("aria-current", "true");
+          el.setAttribute("aria-live", "polite");
+        } else {
+          el.setAttribute("tabindex", "-1");
+          el.removeAttribute("aria-current");
+          el.removeAttribute("aria-live");
+        }
+      });
+
+      // If navigation was triggered by keyboard, move focus to the selected slide
+      if (lastInteractionWasKeyboard.current && slides[selected]) {
+        try {
+          slides[selected].focus();
+        } catch {}
+      }
+      // reset keyboard flag after selection handling
+      lastInteractionWasKeyboard.current = false;
+    } catch {}
   }, []);
 
   const scrollPrev = React.useCallback(() => {
@@ -79,9 +107,11 @@ function Carousel({
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "ArrowLeft") {
         event.preventDefault();
+        lastInteractionWasKeyboard.current = true;
         scrollPrev();
       } else if (event.key === "ArrowRight") {
         event.preventDefault();
+        lastInteractionWasKeyboard.current = true;
         scrollNext();
       }
     },
@@ -120,6 +150,7 @@ function Carousel({
     >
       <div
         onKeyDownCapture={handleKeyDown}
+        tabIndex={0}
         className={cn("relative", className)}
         role="region"
         aria-roledescription="carousel"
