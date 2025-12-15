@@ -22,11 +22,15 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
         <Carousel className="w-full">
           <CarouselContent>
             {images.map((image, index) => (
-              <CarouselItem key={index}>
+              <CarouselItem
+                key={index}
+                aria-label={`Imagen ${index + 1} de ${images.length}`}
+                tabIndex={index === 0 ? 0 : -1}
+              >
                 <div className="relative w-full">
                   <Image
                     src={image}
-                    alt={`Product Image ${index + 1}`}
+                    alt={`Imagen del producto ${index + 1}`}
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover rounded-lg"

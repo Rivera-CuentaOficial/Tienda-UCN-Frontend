@@ -51,6 +51,7 @@ export const ProductsPagination = ({
                 href="#"
                 onClick={e => onPageClick(e, pageNum as number)}
                 isActive={currentPage === pageNum}
+                aria-label={`Ir a la página ${pageNum}`}
               >
                 {pageNum}
               </PaginationLink>

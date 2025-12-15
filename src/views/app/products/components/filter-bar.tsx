@@ -57,10 +57,17 @@ export const FilterBar = ({
         Buscar:
         <Input
           id="search"
+          aria-label="Buscar por nombre o código"
           className="justify-start w-fit mx-2"
-          placeholder="Buscar productos..."
+          placeholder="Buscar por nombre o código..."
           value={searchInput}
           onChange={e => setSearchInput(e.target.value)}
+          onKeyDown={e => {
+            if (e.key === "Enter") {
+              // trigger immediate search on Enter
+              onSearch(searchInput);
+            }
+          }}
         />
       </Label>
       <Label htmlFor="productsPerPage">
