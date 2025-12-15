@@ -21,7 +21,7 @@ Una vez que todo esté instalado, ejecuta el proyecto siguiendo los pasos en la 
 1. Clona el repositorio en tu computadora desde la terminal.
 
    ```bash
-   git clone https://github.com/2kSebaNG/tienda-ucn-frontend.git
+   https://github.com/Rivera-CuentaOficial/Tienda-UCN-Frontend.git
    ```
 
 2. Ve a la carpeta del proyecto.
@@ -43,24 +43,24 @@ Una vez que todo esté instalado, ejecuta el proyecto siguiendo los pasos en la 
    ```
 
 5. En el archivo `.env.local`, reemplaza `your-api-url-here` en la variable `NEXT_PUBLIC_API_URL` por la URL base de tu API. 
-Para encontrar la URL, dentro del repositorio del backend enceuntra el archivo
+Para encontrar la URL, dentro del repositorio del backend encuentra el archivo
 *launchSettings* en la carpeta *Properties*. Tu URL estara en:
 
-```json
-"profiles": {
-    "http": {
-      ,,,
-      "applicationUrl": "http://tu-url",
-      ,,,
-      }
-    }
-```
+   ```json
+   "profiles": {
+       "http": {
+         ,,,
+         "applicationUrl": "http://tu-url",
+         ,,,
+         }
+       }
+   ```
    Asegúrate de encerrar la URL entre comillas dobles (" ") para evitar errores al leer las variables de entorno.
 
-```bash
-# En tu archivo .env.local (Paso 5 del README) reemplaza la variable de la API con:
-NEXT_PUBLIC_API_URL="http://tu-url"
-```
+   ```bash
+   # En tu archivo .env.local (Paso 5 del README) reemplaza la variable de la API con:
+   NEXT_PUBLIC_API_URL="http://tu-url"
+   ```
 6. Crea tu Clave de NextAuth usando el comando:
 
    ```bash
@@ -91,7 +91,7 @@ NEXT_PUBLIC_API_URL="http://tu-url"
 
    ## Repositorio del backend
 
-   Para probar la funcionalidad completa del sitio, accede a la API( - <a href="https://github.com/Rivera-CuentaOficial/Tienda-UCN"> API </a>) y sigue las instrucciones en el archivo README de ese repositorio para ejecutarla.
+   Para probar la funcionalidad completa del sitio, accede a la API desde aqui: [Repositorio Backend](https://github.com/Rivera-CuentaOficial/Tienda-UCN) y sigue las instrucciones en el archivo README de ese repositorio para ejecutarla.
 
 # Configuración y Pruebas del Endpoint de Registro y Verificación de Email
 
